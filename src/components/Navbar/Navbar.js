@@ -1,10 +1,31 @@
-import React from "react";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Badge,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box } from "@mui/system";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <AppBar elevation={0} sx={{ background: "white" }}>
+    <Box elevation={0} sx={{ background: "white" }}>
       <Toolbar>
         <Box
           sx={{
@@ -12,6 +33,7 @@ const Navbar = () => {
             justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
+            padding: "10px 0px",
           }}
           component="div"
         >
@@ -20,7 +42,7 @@ const Navbar = () => {
           {/* logo */}
           <Box>
             <IconButton>
-              <MenuOutlinedIcon />
+              <LocalMallIcon sx={{ fontSize: "2.4rem" }} />
             </IconButton>
           </Box>
           {/* Links */}
@@ -37,9 +59,27 @@ const Navbar = () => {
             </Typography>
             <Typography
               sx={{ marginRight: "20px", cursor: "pointer", color: "#616161" }}
+              arria-controls="basic-menu"
+              aria-aria-haspopup="true"
+              aria-expanded={openMenu ? "true" : undefined}
+              onClick={handleClick}
             >
               Categories
             </Typography>
+            {/*
+dropdown Item*/}
+            <Menu
+              id="basic-men"
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Menu</MenuItem>
+              <MenuItem onClick={handleClose}>Women</MenuItem>
+              <MenuItem onClick={handleClose}>Phones</MenuItem>
+              <MenuItem onClick={handleClose}>Others</MenuItem>
+            </Menu>
+
             <Typography
               sx={{ marginRight: "20px", cursor: "pointer", color: "#616161" }}
             >
@@ -56,13 +96,31 @@ const Navbar = () => {
               FAQ
             </Typography>
           </Box>
-          {/* button */}
-          <Box>
-            <Typography>Buttons</Typography>
+          {/* button Links*/}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* disableElevation is used for to remove sadow */}
+            <Button
+              sx={{ background: "#ff4081" }}
+              disableElevation
+              variant="contained"
+            >
+              Account
+            </Button>
+            <IconButton>
+              <Badge badgeContent={4} color="primary">
+                <ShoppingBasketIcon color="action" />
+              </Badge>
+            </IconButton>
           </Box>
         </Box>
       </Toolbar>
-    </AppBar>
+    </Box>
   );
 };
 
