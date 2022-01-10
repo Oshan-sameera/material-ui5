@@ -1,11 +1,14 @@
 import React from "react";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 const Navbar = () => {
   return (
-    <AppBar>
+    <AppBar elevation={0} color="secondary">
       <Toolbar>
-        <MenuOutlinedIcon></MenuOutlinedIcon>
+        <IconButton>
+          <MenuOutlinedIcon />
+        </IconButton>
+        <Typography>Home</Typography>
       </Toolbar>
     </AppBar>
   );
